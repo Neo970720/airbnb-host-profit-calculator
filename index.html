@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airbnb Host Profit Calculator (2026 host-only fee) — Sheetwright</title>
+<meta name="description" content="Free Airbnb host profit calculator with the 2026 host-only 15.5% fee, split-fee comparison, cleaning costs, co-host payouts and fixed bills. See your real monthly profit, break-even occupancy and the nightly rate your target needs.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#101A2B">
+<link rel="canonical" href="https://neo970720.github.io/airbnb-host-profit-calculator/">
+<meta property="og:title" content="Airbnb Host Profit Calculator — 2026 host-only fee">
+<meta property="og:description" content="The 15.5% fee, the cleaning that costs more than it earns, the mortgage — in one screen. Monthly profit, break-even occupancy and the rate your target needs.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://neo970720.github.io/airbnb-host-profit-calculator/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Airbnb Host Profit Calculator","url":"https://neo970720.github.io/airbnb-host-profit-calculator/","applicationCategory":"BusinessApplication","operatingSystem":"Any","browserRequirements":"Requires JavaScript","description":"Free Airbnb host profit calculator: 2026 host-only 15.5% service fee, split-fee comparison, cleaning revenue versus cleaning cost, co-host payouts, fixed bills, break-even occupancy and the nightly rate a target profit needs.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Sheetwright"},"datePublished":"2026-11-20","dateModified":"2026-11-20"}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101A2B'/%3E%3Cpath d='M8 20.5 12 11h3.4l-4 9.5zm7 0L19 11h3.4l-4 9.5z' fill='%23D93B5C'/%3E%3Cpath d='M8 22.6h16v1.9H8z' fill='%23E8A33D'/%3E%3C/svg%3E">
+<style>
+:root{
+  --navy:#101A2B; --ink:#182234; --body:#2B3848; --muted:#6C7A8C;
+  --line:#E2E8F0; --bg:#F6F8FB; --card:#FFFFFF; --soft:#F6F8FB;
+  --accent:#D93B5C; --accent-deep:#B3243F; --accent-soft:#FCEBEF;
+  --amber:#A9741A; --amber-soft:#FDF5E4; --green:#0B7A63; --green-soft:#E7F2EF;
+  --red:#AF3A2C; --red-soft:#FBEBE8;
+  --input:#FFFCF2; --input-line:#D8B14A;
+  --shadow:0 1px 2px rgba(16,30,54,.06),0 10px 30px rgba(16,30,54,.07);
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --navy:#EAF0F6; --ink:#DCE5EE; --body:#B9C6D4; --muted:#8496A8;
+  --line:#22303F; --bg:#0B1420; --card:#111C2A; --soft:#0F1926;
+  --accent:#F2708C; --accent-deep:#F58DA3; --accent-soft:#2A1620;
+  --amber:#E0A94A; --amber-soft:#2A2314; --green:#4CC0A3; --green-soft:#14302B;
+  --red:#E8796A; --red-soft:#2C1917;
+  --input:#1A2634; --input-line:#5C4A1E;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+button,input,select,textarea{font-family:inherit}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--body);
+  font:15px/1.55 "Liberation Sans","Helvetica Neue",Helvetica,Arial,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.top{
+  position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--card) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.top-in{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.12em;font-size:12px;color:var(--navy)}
+.brand .mark{width:26px;height:26px;border-radius:7px;background:var(--navy);display:grid;place-items:center}
+.brand .mark svg{display:block}
+.spacer{flex:1}
+.theme{
+  border:1px solid var(--line);background:var(--card);color:var(--body);
+  height:36px;padding:0 12px;border-radius:999px;font-size:12.5px;cursor:pointer;
+}
+.theme:hover{border-color:var(--accent)}
+.hero{padding:44px 0 26px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:-.02em;color:var(--navy);margin:12px 0 12px;font-weight:700}
+.lede{font-size:17px;max-width:680px;color:var(--body);margin:0 0 20px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  background:var(--accent);color:#fff;border:0;border-radius:11px;
+  padding:13px 20px;font-weight:700;font-size:14.5px;cursor:pointer;
+  box-shadow:0 6px 16px rgba(217,59,92,.22);
+}
+.btn:hover{background:var(--accent-deep);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line);box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn.small{padding:9px 14px;font-size:13px;box-shadow:none}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start;padding-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card + .card{margin-top:16px}
+.card h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0;padding:16px 18px 0;font-weight:700}
+.card .body{padding:12px 18px 18px}
+.field{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.field:last-child{border-bottom:0}
+.field label{font-size:13.5px;color:var(--body)}
+.field .hint{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.field .ctl{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.unit{font-size:12px;color:var(--muted);width:12px;text-align:left}
+input[type="number"],select{
+  width:104px;padding:8px 9px;border:1px solid var(--input-line);border-radius:8px;
+  background:var(--input);color:var(--ink);font-weight:700;font-size:14px;text-align:right;
+  font-variant-numeric:tabular-nums;appearance:none;-moz-appearance:textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+select{text-align:left;width:auto;min-width:150px;font-weight:600}
+input:focus,select:focus{outline:2px solid color-mix(in srgb,var(--accent) 40%,transparent);outline-offset:1px;border-color:var(--accent)}
+.seg{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:10px;flex-wrap:wrap}
+.seg button{
+  border:0;background:transparent;color:var(--muted);font-weight:700;font-size:12.5px;
+  padding:7px 11px;border-radius:8px;cursor:pointer;
+}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--accent);box-shadow:0 1px 3px rgba(16,30,54,.12)}
+.result{position:sticky;top:78px;scroll-margin-top:80px}
+.netwrap{
+  background:linear-gradient(160deg,#131F31,#1C2B42 60%,#243553);
+  color:#fff;border-radius:var(--radius);padding:22px 22px 18px;box-shadow:var(--shadow);
+}
+html[data-theme="dark"] .netwrap{background:linear-gradient(160deg,#16233A,#1D2E49 60%,#274064)}
+.netwrap .lab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#A9B8CC;font-weight:700}
+.netwrap .big{font-size:clamp(34px,5vw,46px);font-weight:700;letter-spacing:-.02em;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.netwrap .sub{font-size:13px;color:#C6D2E2}
+.netwrap .sub b{color:#fff}
+.netwrap .pill{display:inline-block;margin-top:10px;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);color:#E7EEF7}
+.netwrap .pill.neg{background:rgba(232,121,106,.18);color:#FFC9C1}
+table.lines{width:100%;border-collapse:collapse;margin-top:14px;font-variant-numeric:tabular-nums}
+table.lines td{padding:7px 0;font-size:13.5px;border-bottom:1px solid var(--line)}
+table.lines td:last-child{text-align:right;font-weight:700;color:var(--ink);white-space:nowrap}
+table.lines tr.total td{border-bottom:0;padding-top:11px;font-size:14.5px;font-weight:700;color:var(--navy)}
+table.lines tr.muted td{color:var(--muted);font-size:12.5px}
+table.lines td .pct{font-weight:600;color:var(--muted);font-size:11.5px;margin-left:6px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.metric{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:12px 13px}
+.metric .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.metric .v{font-size:21px;font-weight:700;color:var(--ink);margin-top:3px;font-variant-numeric:tabular-nums}
+.metric .n{font-size:11.5px;color:var(--muted);margin-top:2px}
+.metric.hot .v{color:var(--accent)}
+.bar{height:9px;border-radius:999px;background:var(--soft);border:1px solid var(--line);position:relative;margin:12px 0 6px;overflow:hidden}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:999px}
+.bar .mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy)}
+.bar.neg .fill{background:var(--red)}
+.legend{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted)}
+.duel{margin-top:12px}
+.duel .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.duel .row:last-child{border-bottom:0}
+.duel .row b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.verdict{margin-top:10px;padding:11px 13px;border-radius:10px;background:var(--accent-soft);color:var(--accent-deep);font-weight:700;font-size:13px}
+.verdict.ok{background:var(--green-soft);color:var(--green)}
+.verdict.warn{background:var(--amber-soft);color:var(--amber)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.copy-state{font-size:12px;color:var(--green);align-self:center}
+.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:34px 0 10px}
+.explain .box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.explain h3{font-size:14.5px;color:var(--navy);margin:0 0 7px}
+.explain p{margin:0;font-size:13.5px;color:var(--body)}
+.cta{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:26px 0;display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:center;box-shadow:var(--shadow)}
+.cta h2{margin:0 0 8px;font-size:22px;color:var(--navy);letter-spacing:-.01em}
+.cta p{margin:0 0 10px;font-size:14px}
+.cta ul{margin:0 0 14px;padding-left:18px;font-size:13.5px}
+.cta li{margin:4px 0}
+.price{font-size:30px;font-weight:700;color:var(--navy)}
+.price span{font-size:13px;font-weight:600;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:18px;padding:22px 0 40px;font-size:12.5px;color:var(--muted)}
+footer .links{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:8px}
+.smallprint{font-size:11.5px;color:var(--muted);max-width:760px}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .result{position:static}
+  .explain{grid-template-columns:1fr}
+  .cta{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){
+  .eyebrow{font-size:10px;letter-spacing:.08em}
+  .wrap{padding:0 14px}
+  .field{align-items:flex-start}
+  .field .ctl{width:52%;justify-content:flex-end}
+  input[type="number"]{width:100%;max-width:104px}
+  .metrics{grid-template-columns:1fr}
+  .netwrap{padding:18px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top" aria-label="Sheetwright">
+      <span class="mark"><svg width="15" height="15" viewBox="0 0 32 32" aria-hidden="true"><path d="M8 20.5 12 11h3.4l-4 9.5zm7 0L19 11h3.4l-4 9.5z" fill="#D93B5C"/><path d="M8 22.6h16v1.9H8z" fill="#E8A33D"/></svg></span>
+      SHEETWRIGHT
+    </a>
+    <div class="spacer"></div>
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Dark mode</button>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+  <section class="hero">
+    <div class="eyebrow"><span class="dot"></span>2026 host-only fee · rates checked 20 Nov 2026</div>
+    <h1>What your Airbnb actually pays you</h1>
+    <p class="lede">The 15.5% host-only fee, a cleaning fee that can cost more than it earns, the co-host and the mortgage — in one screen. Nothing leaves your browser and there is nothing to sign up for.</p>
+    <div class="hero-cta">
+      <a class="btn" href="https://sheetwrightstudio.gumroad.com/l/airbnb-true-profit-os-2026" rel="noopener">Get the full workbook — $29</a>
+      <span class="copy-state" id="heroNote">Free calculator · no email required</span>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- ---------------- inputs ---------------- -->
+    <div>
+      <section class="card">
+        <h2>1 · Your listing</h2>
+        <div class="body">
+          <div class="seg" role="group" aria-label="Fee structure">
+            <button type="button" id="segSingle" aria-pressed="true">Host-only 15.5%</button>
+            <button type="button" id="segSplit" aria-pressed="false">Split fee 3%</button>
+          </div>
+          <div class="field">
+            <label for="adr">Nightly rate <span class="hint">What you charge per night, before discounts</span></label>
+            <div class="ctl"><span class="unit">$</span><input id="adr" type="number" value="300" min="0" step="1" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="nights">Nights booked per month <span class="hint" id="occHint">That is 47% of 30 available nights</span></label>
+            <div class="ctl"><input id="nights" type="number" value="14" min="0" max="31" step="1" inputmode="numeric"></div>
+          </div>
+          <div class="field">
+            <label for="stay">Average stay <span class="hint">Nights per reservation — divides the cleanings</span></label>
+            <div class="ctl"><input id="stay" type="number" value="14" min="1" step="1" inputmode="numeric"></div>
+          </div>
+          <div class="field">
+            <label for="guestFee">Guest fee under split fee <span class="hint">Airbnb's range is 14.1%–16.5%</span></label>
+            <div class="ctl"><input id="guestFee" type="number" value="15" min="0" max="30" step="0.1" inputmode="decimal"><span class="unit">%</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2 · Cleaning &amp; consumables</h2>
+        <div class="body">
+          <div class="field">
+            <label for="cleanFee">Cleaning fee the guest pays <span class="hint">The 15.5% is taken from this too</span></label>
+            <div class="ctl"><span class="unit">$</span><input id="cleanFee" type="number" value="150" min="0" step="5" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="cleanCost">What the turnover costs you <span class="hint">Cleaner, linen, travel</span></label>
+            <div class="ctl"><span class="unit">$</span><input id="cleanCost" type="number" value="110" min="0" step="5" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="supplies">Supplies per booked night <span class="hint">Paper, soap, coffee, pods</span></label>
+            <div class="ctl"><span class="unit">$</span><input id="supplies" type="number" value="12" min="0" step="1" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="cohost">Co-host share <span class="hint">Paid before you are, after the fee</span></label>
+            <div class="ctl"><input id="cohost" type="number" value="0" min="0" max="50" step="1" inputmode="decimal"><span class="unit">%</span></div>
+          </div>
+          <div class="field">
+            <label for="cohostBasis">Co-host % includes cleaning fee</label>
+            <div class="ctl">
+              <select id="cohostBasis">
+                <option value="exclude" selected>No — exclude it</option>
+                <option value="include">Yes — include it</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3 · Fixed bills, every month</h2>
+        <div class="body">
+          <div class="field">
+            <label for="fMortgage">Mortgage or rent</label>
+            <div class="ctl"><span class="unit">$</span><input id="fMortgage" type="number" value="1420" min="0" step="10" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="fTax">Property tax set-aside</label>
+            <div class="ctl"><span class="unit">$</span><input id="fTax" type="number" value="250" min="0" step="10" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="fInsurance">Insurance</label>
+            <div class="ctl"><span class="unit">$</span><input id="fInsurance" type="number" value="140" min="0" step="5" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="fHoa">HOA or community fee</label>
+            <div class="ctl"><span class="unit">$</span><input id="fHoa" type="number" value="90" min="0" step="5" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="fUtilities">Utilities &amp; internet</label>
+            <div class="ctl"><span class="unit">$</span><input id="fUtilities" type="number" value="290" min="0" step="5" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="fOther">Software &amp; other</label>
+            <div class="ctl"><span class="unit">$</span><input id="fOther" type="number" value="85" min="0" step="5" inputmode="decimal"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>4 · Your target</h2>
+        <div class="body">
+          <div class="field">
+            <label for="target">Monthly profit you want <span class="hint">The rate you'd need is on the right</span></label>
+            <div class="ctl"><span class="unit">$</span><input id="target" type="number" value="2000" min="0" step="100" inputmode="decimal"></div>
+          </div>
+          <div class="field">
+            <label for="available">Nights available per month <span class="hint">30 unless you block owner nights</span></label>
+            <div class="ctl"><input id="available" type="number" value="30" min="1" max="31" step="1" inputmode="numeric"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ---------------- results ---------------- -->
+    <div class="result">
+      <div class="netwrap">
+        <div class="lab">Monthly net profit</div>
+        <div class="big" id="out_net">$0</div>
+        <div class="sub">on <b id="out_gross">$0</b> of booking value · <b id="out_margin">0%</b> margin</div>
+        <div class="pill" id="out_pill">—</div>
+      </div>
+
+      <section class="card">
+        <h2>Where the money goes</h2>
+        <div class="body">
+          <table class="lines" id="lines">
+            <tr><td>Room revenue</td><td id="out_room">$0</td></tr>
+            <tr><td>Cleaning fees charged <span class="pct" id="out_stays">0 stays</span></td><td id="out_cleanrev">$0</td></tr>
+            <tr><td>Airbnb service fee <span class="pct" id="out_feePct">15.5%</span></td><td id="out_fee">−$0</td></tr>
+            <tr><td>Co-host payout</td><td id="out_cohost">−$0</td></tr>
+            <tr><td>Your payout</td><td id="out_payout">$0</td></tr>
+            <tr><td>Cleaning cost <span class="pct" id="out_cleanCosts">0 turnovers</span></td><td id="out_clean">−$0</td></tr>
+            <tr><td>Supplies &amp; consumables</td><td id="out_supplies">−$0</td></tr>
+            <tr><td>Contribution</td><td id="out_contrib">$0</td></tr>
+            <tr><td>Fixed bills</td><td id="out_fixed">−$0</td></tr>
+            <tr class="total"><td>Net profit</td><td id="out_net2">$0</td></tr>
+          </table>
+          <div class="actions">
+            <button class="btn small" id="copyBtn" type="button">Copy this breakdown</button>
+            <span class="copy-state" id="copyState" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Break-even occupancy</h2>
+        <div class="body">
+          <div class="metrics">
+            <div class="metric hot">
+              <div class="k">You break even at</div>
+              <div class="v" id="out_beOcc">0%</div>
+              <div class="n" id="out_beNights">0 nights a month</div>
+            </div>
+            <div class="metric">
+              <div class="k">You are at</div>
+              <div class="v" id="out_occ">0%</div>
+              <div class="n" id="out_gap">0 points of cushion</div>
+            </div>
+          </div>
+          <div class="bar" id="occBar"><div class="fill" id="occFill" style="width:0%"></div><div class="mark" id="occMark" style="left:0%"></div></div>
+          <div class="legend"><span>0</span><span id="out_gapNote">Break-even marked in navy</span><span id="out_cap">0%</span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Split fee vs host-only</h2>
+        <div class="body">
+          <p style="font-size:13px;color:var(--muted);margin:0 0 6px">Same guest-facing price, both structures. This is the only fair comparison — 3% is taken from a smaller number.</p>
+          <div class="duel">
+            <div class="row"><span>Guest pays per night</span><b id="out_guestPrice">$0</b></div>
+            <div class="row"><span>Split 3% — your listed price</span><b id="out_splitListed">$0</b></div>
+            <div class="row"><span>Split 3% — you keep</span><b id="out_splitNet">$0</b></div>
+            <div class="row"><span>Host-only 15.5% — you keep</span><b id="out_singleNet">$0</b></div>
+          </div>
+          <div class="verdict" id="out_verdict">—</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>The rate your target needs</h2>
+        <div class="body">
+          <div class="metrics">
+            <div class="metric">
+              <div class="k">Required nightly rate</div>
+              <div class="v" id="out_needAdr">$0</div>
+              <div class="n" id="out_needNote">at this many nights</div>
+            </div>
+            <div class="metric">
+              <div class="k">Per booked night</div>
+              <div class="v" id="out_perNight">$0</div>
+              <div class="n">contribution, before fixed bills</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="explain" aria-label="How the maths works">
+    <div class="box">
+      <h3>3% versus 15.5% is a price game</h3>
+      <p>Under split fee the guest's total sits 14.1%–16.5% above your nightly rate, so your own price — and the 3% taken from it — is smaller. At a 15% guest fee the two structures land within 46 cents a night of each other. Below a 14.79% guest fee, split fee pays more.</p>
+    </div>
+    <div class="box">
+      <h3>The cleaning fee is taxed like room revenue</h3>
+      <p>A $150 cleaning fee nets $126.75 after the host-only fee. If the cleaner charges $110, that turnover earned you $16.75 — not $40. A one-night stay can lose money while looking like a booking.</p>
+    </div>
+    <div class="box">
+      <h3>Break-even occupancy is the survival line</h3>
+      <p>Fixed bills ÷ what each booked night leaves you. If a 2-bedroom needs 11 nights a month and you average 8, the year is a loss no matter how good the reviews are. The first ten points above that line are your profit.</p>
+    </div>
+  </section>
+
+  <section class="cta" aria-label="The workbook">
+    <div>
+      <h2>Airbnb True Profit OS — the twelve-month version</h2>
+      <p>The calculator answers one month. The workbook answers the year: 200 reservations, twelve months of P&amp;L, break-even occupancy per month, depreciation, cash-on-cash and a fee watch with every rate sourced.</p>
+      <ul>
+        <li>10 sheets, 200 booking slots, 15 worked examples</li>
+        <li>Split vs host-only duel at the same guest price</li>
+        <li>Break-even occupancy, RevPAR, required ADR</li>
+        <li>Tax &amp; CapEx: depreciation, quarterly reserve, cash-on-cash</li>
+      </ul>
+      <a class="btn" href="https://sheetwrightstudio.gumroad.com/l/airbnb-true-profit-os-2026" rel="noopener" id="ctaBottom">Get the workbook — $29</a>
+    </div>
+    <div style="text-align:center">
+      <div class="price">$29 <span>one-time · Excel &amp; Google Sheets</span></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">No subscription. Yours to keep, edit and reuse for every listing.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://sheetwrightstudio.gumroad.com/l/airbnb-true-profit-os-2026" rel="noopener">Airbnb True Profit OS — $29</a>
+      <a href="https://sheetwrightstudio.gumroad.com/l/airbnb-true-profit-os-2026" rel="noopener">Sheetwright on Gumroad</a>
+      <a href="#top">Back to the calculator</a>
+    </div>
+    <p class="smallprint">Rates are Airbnb's published figures as of 20 November 2026, read from Airbnb's help centre (service fees, tax collection, co-host payouts, Fast Pay). They can change; your own transaction history is the final word. This page is a calculator, not financial or tax advice, and it is not affiliated with or endorsed by Airbnb, Inc. Nothing you type leaves your browser — there is no tracking script on this page.</p>
+    <p class="smallprint" style="margin-top:10px">© 2026 Sheetwright · <a href="https://sheetwrightstudio.gumroad.com/l/airbnb-true-profit-os-2026" rel="noopener">Airbnb True Profit OS v1.0.0</a></p>
+  </div>
+</footer>
+
+<script>
+const RATES = {"single": 0.155, "split": 0.03, "guestLow": 0.141, "guestHigh": 0.165, "guestDefault": 0.15, "breakEvenGuest": 0.147929, "fastPay": 0.015, "fastPayCap": 15.0, "verified": "2026-11-20"};
+const $ = id => document.getElementById(id);
+const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : 0; };
+const money = (v, sign) => {
+  const n = Math.abs(v);
+  const s = '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  if (v < -0.005) return '−' + s;
+  return sign === 'neg' && n > 0.004 ? '−' + s : s;
+};
+const pct = v => (v * 100).toFixed(1) + '%';
+
+let structure = 'single';
+
+function readInputs() {
+  return {
+    adr: num('adr'),
+    nights: num('nights'),
+    available: Math.max(1, num('available')),
+    stay: Math.max(1, num('stay')),
+    cleanFee: num('cleanFee'),
+    cleanCost: num('cleanCost'),
+    supplies: num('supplies'),
+    cohost: num('cohost') / 100,
+    cohostInclude: $('cohostBasis').value === 'include',
+    guestFee: num('guestFee') / 100,
+    fixed: num('fMortgage') + num('fTax') + num('fInsurance') + num('fHoa') + num('fUtilities') + num('fOther'),
+    target: num('target'),
+    structure: structure
+  };
+}
+
+function model(o) {
+  const rate = o.structure === 'split' ? RATES.split : RATES.single;
+  const stays = o.stay ? o.nights / o.stay : 0;
+  const room = o.adr * o.nights;
+  const cleaningRev = o.cleanFee * stays;
+  const gross = room + cleaningRev;
+  const fee = gross * rate;
+  const hostPot = gross - fee;
+  const cohostBase = hostPot - (o.cohostInclude ? 0 : cleaningRev);
+  const cohost = cohostBase * o.cohost;
+  const payout = gross - fee - cohost;
+  const cleanCosts = o.cleanCost * stays;
+  const variable = o.supplies * o.nights;
+  const contribution = payout - cleanCosts - variable;
+  const net = contribution - o.fixed;
+  const occupancy = o.nights / o.available;
+  const perNight = o.nights ? contribution / o.nights : 0;
+  return {rate, stays, room, cleaningRev, gross, fee, hostPot, cohost, payout,
+          cleanCosts, variable, contribution, net, occupancy, perNight,
+          margin: gross ? net / gross : 0};
+}
+
+function perNightContribution(o) {
+  const rate = o.structure === 'split' ? RATES.split : RATES.single;
+  const keep = 1 - rate;
+  if (!o.cohostInclude) {
+    return o.adr * keep * (1 - o.cohost) + (o.cleanFee * keep - o.cleanCost) / o.stay - o.supplies;
+  }
+  return keep * (1 - o.cohost) * (o.adr + o.cleanFee / o.stay) - o.cleanCost / o.stay - o.supplies;
+}
+
+function breakeven(o) {
+  const m = perNightContribution(o);
+  if (m <= 0) return {perNight: m, nights: null, occupancy: null};
+  const nights = o.fixed / m;
+  return {perNight: m, nights, occupancy: nights / o.available};
+}
+
+function requiredAdr(o) {
+  const rate = o.structure === 'split' ? RATES.split : RATES.single;
+  const keep = 1 - rate;
+  if (!o.nights || !o.stay) return 0;
+  const need = (o.target + o.fixed) / o.nights;
+  let adr;
+  if (!o.cohostInclude) {
+    const rest = (o.cleanFee * keep - o.cleanCost) / o.stay;
+    adr = (need - rest + o.supplies) / (keep * (1 - o.cohost));
+  } else {
+    adr = (need + o.cleanCost / o.stay + o.supplies) / (keep * (1 - o.cohost)) - o.cleanFee / o.stay;
+  }
+  return Math.max(0, adr);
+}
+
+function duel(o) {
+  const listed = o.adr / (1 + o.guestFee);
+  const splitNet = listed * (1 - RATES.split);
+  const singleNet = o.adr * (1 - RATES.single);
+  return {listed, splitNet, singleNet, diff: singleNet - splitNet};
+}
+
+function render() {
+  const o = readInputs();
+  const m = model(o);
+  const be = breakeven(o);
+  const need = requiredAdr(o);
+  const d = duel(o);
+
+  $('out_net').textContent = money(m.net);
+  $('out_net2').textContent = money(m.net);
+  $('out_gross').textContent = money(m.gross);
+  $('out_margin').textContent = pct(m.margin);
+  const pill = $('out_pill');
+  if (m.net < 0) {
+    pill.textContent = 'Loss — ' + pct(Math.abs(m.margin)) + ' below zero';
+    pill.className = 'pill neg';
+  } else if (be.occupancy !== null && m.occupancy > be.occupancy + 0.10) {
+    pill.textContent = 'Clearing break-even by ' + pct(m.occupancy - be.occupancy);
+    pill.className = 'pill';
+  } else if (be.occupancy !== null && m.occupancy >= be.occupancy) {
+    pill.textContent = 'Only ' + pct(m.occupancy - be.occupancy) + ' above break-even';
+    pill.className = 'pill';
+  } else if (be.occupancy !== null) {
+    pill.textContent = 'Below break-even by ' + pct(be.occupancy - m.occupancy);
+    pill.className = 'pill neg';
+  } else {
+    pill.textContent = 'No profit per night at these numbers';
+    pill.className = 'pill neg';
+  }
+
+  $('out_room').textContent = money(m.room);
+  $('out_stays').textContent = m.stays.toFixed(2).replace(/\.00$/, '') + (m.stays === 1 ? ' stay' : ' stays');
+  $('out_cleanrev').textContent = money(m.cleaningRev);
+  $('out_feePct').textContent = pct(m.rate);
+  $('out_fee').textContent = money(-m.fee);
+  $('out_cohost').textContent = m.cohost > 0 ? money(-m.cohost) : money(0);
+  $('out_payout').textContent = money(m.payout);
+  $('out_cleanCosts').textContent = m.stays.toFixed(2).replace(/\.00$/, '') + (m.stays === 1 ? ' turnover' : ' turnovers');
+  $('out_clean').textContent = money(-m.cleanCosts);
+  $('out_supplies').textContent = money(-m.variable);
+  $('out_contrib').textContent = money(m.contribution);
+  $('out_fixed').textContent = money(-o.fixed);
+
+  $('occHint').textContent = 'That is ' + pct(m.occupancy) + ' of ' + o.available + ' available nights';
+
+  const beOcc = be.occupancy;
+  $('out_beOcc').textContent = beOcc === null ? 'n/a' : pct(beOcc);
+  $('out_beNights').textContent = be.nights === null ? 'no profitable night at this rate'
+    : be.nights.toFixed(1) + ' nights a month';
+  $('out_occ').textContent = pct(m.occupancy);
+  const gap = beOcc === null ? null : m.occupancy - beOcc;
+  $('out_gap').textContent = gap === null ? '—'
+    : (gap >= 0 ? pct(gap) + ' above the line' : pct(-gap) + ' below the line');
+  $('out_gapNote').textContent = gap !== null && gap < 0 ? 'Short of the line' : 'Break-even marked in navy';
+  const cap = 1;
+  $('out_cap').textContent = '100%';
+  $('occFill').style.width = Math.min(100, m.occupancy * 100) + '%';
+  $('occBar').className = 'bar' + (m.net < 0 ? ' neg' : '');
+  $('occMark').style.left = Math.min(99.5, (beOcc || 0) * 100) + '%';
+
+  $('out_guestPrice').textContent = money(o.adr);
+  $('out_splitListed').textContent = money(d.listed);
+  $('out_splitNet').textContent = money(d.splitNet);
+  $('out_singleNet').textContent = money(d.singleNet);
+  const v = $('out_verdict');
+  if (Math.abs(d.diff) < 0.005) {
+    v.textContent = 'A dead heat at a ' + pct(o.guestFee) + ' guest fee.';
+    v.className = 'verdict warn';
+  } else if (d.diff > 0) {
+    v.textContent = 'Host-only pays ' + money(d.diff) + ' more per night at this guest price — ' +
+      money(Math.abs(d.diff) * o.nights) + ' a month at ' + o.nights + ' nights.';
+    v.className = 'verdict ok';
+  } else {
+    v.textContent = 'Split fee pays ' + money(-d.diff) + ' more per night here: the guest fee is below the ' +
+      pct(RATES.breakEvenGuest) + ' line where the two cross.';
+    v.className = 'verdict warn';
+  }
+
+  $('out_needAdr').textContent = money(need);
+  $('out_needNote').textContent = 'for ' + money(o.target) + ' at ' + o.nights + ' nights';
+  $('out_perNight').textContent = money(m.perNight);
+
+  window.__last = {o, m, be, need, d};
+}
+
+function copyText() {
+  const {o, m, be, need, d} = window.__last;
+  const lines = [
+    'Airbnb host profit — ' + (o.structure === 'split' ? 'split fee 3%' : 'host-only 15.5%'),
+    'Nightly rate: ' + money(o.adr) + ' · ' + o.nights + ' nights/month (' + pct(m.occupancy) + ') · ' + o.stay + '-night stays',
+    '',
+    'Room revenue: ' + money(m.room),
+    'Cleaning fees charged: ' + money(m.cleaningRev),
+    'Booking value: ' + money(m.gross),
+    'Airbnb service fee (' + pct(m.rate) + '): −' + money(m.fee),
+    (m.cohost > 0 ? 'Co-host payout: −' + money(m.cohost) : 'Co-host payout: $0.00'),
+    'Payout to you: ' + money(m.payout),
+    'Cleaning cost: −' + money(m.cleanCosts),
+    'Supplies: −' + money(m.variable),
+    'Contribution: ' + money(m.contribution),
+    'Fixed bills: −' + money(o.fixed),
+    'NET PROFIT: ' + money(m.net) + ' per month (' + pct(m.margin) + ' margin)',
+    '',
+    'Break-even: ' + (be.occupancy === null ? 'n/a' : pct(be.occupancy) + ' occupancy (' + be.nights.toFixed(1) + ' nights)'),
+    'Rate for ' + money(o.target) + ' profit: ' + money(need) + '/night',
+    'Split vs host-only at ' + money(o.adr) + ' guest price: ' + money(d.splitNet) + ' vs ' + money(d.singleNet),
+    'Rates verified ' + RATES.verified + ' · Sheetwright'
+  ];
+  return lines.join('\n');
+}
+
+function showCopied(text) {
+  $('copyState').textContent = 'Copied — paste it anywhere';
+  $('copiedText').value = text;
+  setTimeout(() => { $('copyState').textContent = ''; }, 2600);
+}
+
+$('copyBtn').addEventListener('click', async () => {
+  const text = copyText();
+  try {
+    await navigator.clipboard.writeText(text);
+    showCopied(text);
+  } catch (e) {
+    const ta = $('copiedText');
+    ta.value = text;
+    ta.select();
+    try { document.execCommand('copy'); showCopied(text); }
+    catch (err) { $('copyState').textContent = 'Select the box below and copy'; }
+  }
+});
+
+function setStructure(next) {
+  structure = next;
+  $('segSingle').setAttribute('aria-pressed', String(next === 'single'));
+  $('segSplit').setAttribute('aria-pressed', String(next === 'split'));
+  render();
+}
+$('segSingle').addEventListener('click', () => setStructure('single'));
+$('segSplit').addEventListener('click', () => setStructure('split'));
+
+['adr','nights','stay','guestFee','cleanFee','cleanCost','supplies','cohost','cohostBasis',
+ 'fMortgage','fTax','fInsurance','fHoa','fUtilities','fOther','target','available']
+  .forEach(id => { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+
+const saved = (() => { try { return localStorage.getItem('sw-theme'); } catch (e) { return null; } })();
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  $('themeBtn').textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  try { localStorage.setItem('sw-theme', theme); } catch (e) {}
+}
+applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+$('themeBtn').addEventListener('click', () => {
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+});
+
+render();
+window.__model = model;
+window.__read = readInputs;
+window.__setStructure = setStructure;
+</script>
+<textarea id="copiedText" aria-hidden="true" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;opacity:0"></textarea>
+</body>
+</html>

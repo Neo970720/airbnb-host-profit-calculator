@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://neo970720.github.io/airbnb-host-profit-calculator/sitemap.xml
